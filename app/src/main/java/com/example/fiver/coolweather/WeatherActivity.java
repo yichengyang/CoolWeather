@@ -175,7 +175,7 @@ public class WeatherActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (weather!=null&&"ok".equals(weather.status)){
-                            //mWeatherId更新
+                            //mWeatherId更新(修复刷新时的显示bug)
                             mWeatherId = weatherId;
                             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                             editor.putString("weather",responseText);
