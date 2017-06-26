@@ -1,5 +1,6 @@
 package com.example.fiver.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.fiver.coolweather.gson.ForeCast;
 import com.example.fiver.coolweather.gson.Weather;
+import com.example.fiver.coolweather.service.AutoUpdateService;
 import com.example.fiver.coolweather.util.HttpUtil;
 import com.example.fiver.coolweather.util.Utility;
 
@@ -181,6 +183,8 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather",responseText);
                             editor.apply();
                             showWeatherInfo(weather);
+                            Intent intent = new Intent(WeatherActivity.this, AutoUpdateService.class);
+                            startService(intent);
                         }else{
                             Toast.makeText(WeatherActivity.this,"获取天气失败",Toast.LENGTH_SHORT).show();
                         }
