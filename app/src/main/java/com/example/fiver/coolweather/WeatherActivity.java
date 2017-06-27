@@ -27,6 +27,7 @@ import com.example.fiver.coolweather.gson.Weather;
 import com.example.fiver.coolweather.service.AutoUpdateService;
 import com.example.fiver.coolweather.util.HttpUtil;
 import com.example.fiver.coolweather.util.Utility;
+import com.yalantis.phoenix.PullToRefreshView;
 
 import java.io.IOException;
 
@@ -49,7 +50,8 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView sportText;
 
     private ImageView bingPicImg;
-    public SwipeRefreshLayout swipeRefresh;
+    //public SwipeRefreshLayout swipeRefresh;
+    public PullToRefreshView mPullToRefreshView;
     private String mWeatherId;
 
     public DrawerLayout drawerLayout;
@@ -86,8 +88,9 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText = (TextView)findViewById(R.id.car_wash_text);
         sportText = (TextView)findViewById(R.id.sport_text);
         bingPicImg = (ImageView)findViewById(R.id.bing_pic_img);
-        swipeRefresh = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh);
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        //swipeRefresh = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh);
+        //swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        mPullToRefreshView = (PullToRefreshView)findViewById(R.id.pull_to_refresh);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         navButton = (Button)findViewById(R.id.nav_button);
 
@@ -106,7 +109,13 @@ public class WeatherActivity extends AppCompatActivity {
             requestWeather(mWeatherId);
         }
 
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                requestWeather(mWeatherId);
+//            }
+//        });
+        mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 requestWeather(mWeatherId);
@@ -164,7 +173,8 @@ public class WeatherActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();
-                        swipeRefresh.setRefreshing(false);
+                        //swipeRefresh.setRefreshing(false);
+                        mPullToRefreshView.setRefreshing(false);
                     }
                 });
             }
@@ -188,7 +198,8 @@ public class WeatherActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(WeatherActivity.this,"获取天气失败",Toast.LENGTH_SHORT).show();
                         }
-                        swipeRefresh.setRefreshing(false);
+                        //swipeRefresh.setRefreshing(false);
+                        mPullToRefreshView.setRefreshing(false);
                     }
                 });
 
